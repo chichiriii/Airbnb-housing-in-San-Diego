@@ -8,10 +8,20 @@ library(ggplot2)
 ```
 
 ```{r setup, include=FALSE}
-file_link1 <- "http://data.insideairbnb.com/united-states/ca/san-diego/2019-11-21/data/listings.csv.gz"
-SDlisting <- read_csv(file = file_link1)
+#file_link1 <- "http://data.insideairbnb.com/united-states/ca/san-diego/2019-11-21/data/listings.csv.gz"
+#SDlisting <- read_csv(file = file_link1)
 #saveRDS(SDlisting, file = "SDlisting")
 #file_link2 <- "http://data.insideairbnb.com/united-states/ca/san-diego/2019-11-21/data/calendar.csv.gz"
 
 ```
+```{r setup, include=FALSE}
+SDlisting <- readRDS("SDlisting")
+```
 
+
+```{r setup, include=FALSE}
+#list of Airbnb neighborhood
+unique(SDlisting$neighbourhood)
+
+SDlisting %>% count(neighbourhood)%>% hist()
+```
