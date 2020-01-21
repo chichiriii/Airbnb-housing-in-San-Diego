@@ -2,8 +2,16 @@
 title: "Airbnb"
 output: html_document
 ---
+```{r}
+library(tidyverse)
+library(ggplot2)
+```
 
 ```{r setup, include=FALSE}
+file_link1 <- "http://data.insideairbnb.com/united-states/ca/san-diego/2019-11-21/data/listings.csv.gz"
+SDlisting <- read_csv(file = file_link1)
+#saveRDS(SDlisting, file = "SDlisting")
+#file_link2 <- "http://data.insideairbnb.com/united-states/ca/san-diego/2019-11-21/data/calendar.csv.gz"
 
 ```
 
