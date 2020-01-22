@@ -5,16 +5,18 @@ output: html_document
 ```{r}
 library(tidyverse)
 library(ggplot2)
+library(readr)
 ```
 
 ```{r setup, include=FALSE}
 #file_link1 <- "http://data.insideairbnb.com/united-states/ca/san-diego/2019-11-21/data/listings.csv.gz"
 #SDlisting <- read_csv(file = file_link1)
 #saveRDS(SDlisting, file = "SDlisting")
-file_link2 <- "http://data.insideairbnb.com/united-states/ca/san-diego/2019-11-21/data/calendar.csv.gz"
-SDcalendar <- read_csv(file = file_link2)
-saveRDS(SDcalendar, file ="SDcalendar")
-#SDlisting <- readRDS("SDlisting")
+
+#file_link2 <- "http://data.insideairbnb.com/united-states/ca/san-diego/2019-11-21/data/calendar.csv.gz"
+#SDcalendar <- read_csv(file = file_link2)
+#saveRDS(SDcalendar, file ="SDcalendar")
+#SDcalendar <- readRDS("SDcalendar")
 ```
 
 **AirBnB neighborhoods in San Diego**
@@ -32,6 +34,24 @@ top10nbh_plot
 ```
 
 ```{r}
-names(SDlisting)
+#change type of price and adjusted price to numeric, available and listing_id to factor
+SDcalendar$adjusted_price <- parse_number(SDcalendar$adjusted_price)
+SDcalendar$price <- parse_number(SDcalendar$price)
+
+SDcalendar$listing_id <- as.factor(SDcalendar$listing_id)
+SDcalendar$available<- as.factor(SDcalendar$available)
+
+#mean price of each listing
+SDlisting_price <- SDcalendar %>% group_by(listing_id) %>% summarise(average_price = mean(adjusted_price)) 
+#saveRDS(SDlisting_price,"SDlisting_price")
+#Average income from AirBnB per night
+mean(SDlisting_price$average_price)
+
+#Distribution of AirBnB price in San Diego
+hist(SDlisting_price$average_price,breaks=50, col="blue")
+
+d <- density(SDlisting_price$average_price) # returns the density data
+plot(d, main = "San Diego AirBnB price distribution")
+polygon(d, col="pink", border="blue")
 ```
 
