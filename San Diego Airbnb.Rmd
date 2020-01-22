@@ -1,5 +1,5 @@
 ---
-title: "Airbnb"
+title: "AirBnB"
 output: html_document
 ---
 ```{r}
@@ -11,13 +11,13 @@ library(ggplot2)
 #file_link1 <- "http://data.insideairbnb.com/united-states/ca/san-diego/2019-11-21/data/listings.csv.gz"
 #SDlisting <- read_csv(file = file_link1)
 #saveRDS(SDlisting, file = "SDlisting")
-#file_link2 <- "http://data.insideairbnb.com/united-states/ca/san-diego/2019-11-21/data/calendar.csv.gz"
-
-
+file_link2 <- "http://data.insideairbnb.com/united-states/ca/san-diego/2019-11-21/data/calendar.csv.gz"
+SDcalendar <- read_csv(file = file_link2)
+saveRDS(SDcalendar, file ="SDcalendar")
 #SDlisting <- readRDS("SDlisting")
 ```
 
-
+**AirBnB neighborhoods in San Diego**
 ```{r setup, include=FALSE}
 #list of Airbnb neighborhood
 unique(SDlisting$neighbourhood)
@@ -25,7 +25,13 @@ unique(SDlisting$neighbourhood)
 #top 10 Airbnb neighborhood
 top10neighborhood <- SDlisting %>% filter(neighbourhood != "NA") %>% count(neighbourhood) %>% arrange(desc(n)) %>% slice(1:10) 
 
-top10neighborhood %>% ggplot(aes(x=neighbourhood, y=n)) + coord_flip() + 
+top10nbh_plot <- top10neighborhood %>% ggplot(aes(x=neighbourhood, y=n)) + coord_flip() + 
   geom_col(aes(fill=neighbourhood)) + theme(legend.position = "none") + ggtitle( "Top 10 AirBnB neighborhoods in San Diego")
+
+top10nbh_plot
+```
+
+```{r}
+names(SDlisting)
 ```
 
