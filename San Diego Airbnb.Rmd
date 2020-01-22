@@ -8,14 +8,24 @@ library(ggplot2)
 ```
 
 ```{r setup, include=FALSE}
-file_link1 <- "http://data.insideairbnb.com/united-states/ca/san-diego/2019-11-21/data/listings.csv.gz"
-SDlisting <- read_csv(file = file_link1)
+#file_link1 <- "http://data.insideairbnb.com/united-states/ca/san-diego/2019-11-21/data/listings.csv.gz"
+#SDlisting <- read_csv(file = file_link1)
 #saveRDS(SDlisting, file = "SDlisting")
 #file_link2 <- "http://data.insideairbnb.com/united-states/ca/san-diego/2019-11-21/data/calendar.csv.gz"
 
+
+#SDlisting <- readRDS("SDlisting")
 ```
 
-```{r}
 
+```{r setup, include=FALSE}
+#list of Airbnb neighborhood
+unique(SDlisting$neighbourhood)
+
+#top 10 Airbnb neighborhood
+top10neighborhood <- SDlisting %>% filter(neighbourhood != "NA") %>% count(neighbourhood) %>% arrange(desc(n)) %>% slice(1:10) 
+
+top10neighborhood %>% ggplot(aes(x=neighbourhood, y=n)) + coord_flip() + 
+  geom_col(aes(fill=neighbourhood)) + theme(legend.position = "none") + ggtitle( "Top 10 AirBnB neighborhoods in San Diego")
 ```
 
