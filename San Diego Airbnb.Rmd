@@ -44,8 +44,14 @@ SDcalendar$available<- as.factor(SDcalendar$available)
 #mean price of each listing
 SDlisting_price <- SDcalendar %>% group_by(listing_id) %>% summarise(average_price = mean(adjusted_price)) 
 #saveRDS(SDlisting_price,"SDlisting_price")
-#Average income from AirBnB per night
+#Average AirBnB price per night
 mean(SDlisting_price$average_price)
+
+#Average income from AirBnB per night when the place is booked
+SDcalendar %>% filter(available == "f") %>% group_by(listing_id) %>% summarise(avg_income = mean(adjusted_price))
+
+#total income in 1 year 
+SDcalendar %>% filter(available == "f") %>% group_by(listing_id) %>% summarise(total_income= sum(adjusted_price)) %>% arrange(desc(total_income))
 
 #Distribution of AirBnB price in San Diego
 hist(SDlisting_price$average_price,breaks=50, col="blue")
@@ -53,5 +59,8 @@ hist(SDlisting_price$average_price,breaks=50, col="blue")
 d <- density(SDlisting_price$average_price) # returns the density data
 plot(d, main = "San Diego AirBnB price distribution")
 polygon(d, col="pink", border="blue")
+
+#Total $ earned from AirBnB each day in the year
+SDcalendar %>% filter(available == "f") %>% group_by(date) %>% summarise(total = sum(adjusted_price)) %>% arrange(desc(total))
 ```
 
