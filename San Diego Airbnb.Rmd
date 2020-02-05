@@ -8,15 +8,17 @@ library(ggplot2)
 library(readr)
 ```
 
-```{r setup, include=FALSE}
+```{r}
+#load data
 #file_link1 <- "http://data.insideairbnb.com/united-states/ca/san-diego/2019-11-21/data/listings.csv.gz"
 #SDlisting <- read_csv(file = file_link1)
 #saveRDS(SDlisting, file = "SDlisting")
-
+SDlisting <- readRDS("SDlisting")
 #file_link2 <- "http://data.insideairbnb.com/united-states/ca/san-diego/2019-11-21/data/calendar.csv.gz"
 #SDcalendar <- read_csv(file = file_link2)
 #saveRDS(SDcalendar, file ="SDcalendar")
-#SDcalendar <- readRDS("SDcalendar")
+SDcalendar <- readRDS("SDcalendar")
+SDlisting_price <- readRDS("SDlisting_price")
 ```
 
 **AirBnB neighborhoods in San Diego**
